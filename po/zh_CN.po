@@ -873,3 +873,8 @@ msgstr "字符集设置"
 msgid "en;q=1.0"
 msgstr "zh-CN;q=1.0, zh-Hans;q=0.9, zh;q=0.8, en;q=0.5"
 
+msgid "Opening socket..."
+msgstr "正在连接……"
+
+msgid "Viewing"
+msgstr "正在浏览"

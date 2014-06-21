@@ -470,7 +470,7 @@ openSocket(char *const hostname,
 
     if (fmInitialized) {
 	/* FIXME: gettextize? */
-	message(Sprintf("Opening socket...")->ptr, 0, 0);
+	message(Sprintf(gettext("Opening socket..."))->ptr, 0, 0);
 	refresh();
     }
     if (SETJMP(AbortLoading) != 0) {
