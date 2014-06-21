@@ -1,18 +1,18 @@
 2ch.cgi
 
   [w3m-dev 03635] 2ch.cgi
-  localcgi to read 2ch dat directly
+  在本地直接读取2ch信息的神奇CGI
 
   w3m file:/cgi-bin/2ch.cgi?http://pc.2ch.net/test/read.cgi/unix/1035755937/
 
-  It uses wget -c.
-  `dat' files are recorded under ~/w3m2ch/.
-  You can not post.
+  它使用了wget -c。
+  数据放在~/w3m2ch/.
+  可惜。。。你不能发送。
 
 smb.cgi
 
   [w3m-dev 03634] smb.cgi
-  localcgi to access SMB.
+  本地的SMB访问CGI。
   Since it uses nmblookup, smbclient, you should install samba.
   Password can be passed to smbclient:
   1) When the password is set by contents of ~/.w3m/smb and
