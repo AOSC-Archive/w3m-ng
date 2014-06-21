@@ -12,3 +12,10 @@ What's more, it seems that we had a broken `git.pm` so we couldn't do `git cvsim
 half-[cloned](https://github.com/akavel/cvsclone) cvs repo.
 
 For historical changes, go to the original site: http://w3m.sourceforge.net/
+
+TODO
+---
+
+- Better localization, more languages. 
+- Code cleanup and if possible, refresh them.
+- Optimize usage of imaging libraries.
