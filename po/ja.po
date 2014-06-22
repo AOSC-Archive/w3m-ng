@@ -878,3 +878,9 @@ msgstr "文字コードの設定"
 #: rc.c:1209
 msgid "en;q=1.0"
 msgstr "ja;q=1.0, en;q=0.5"
+
+msgid "Opening socket..."
+msgstr "接続......"
+
+msgid "Viewing"
+msgstr "ビューイング"
