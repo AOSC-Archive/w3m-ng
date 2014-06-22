@@ -883,4 +883,4 @@ msgid "Opening socket..."
 msgstr "接続......"
 
 msgid "Viewing"
-msgstr "ビューイング"
+msgstr "表示しています"
