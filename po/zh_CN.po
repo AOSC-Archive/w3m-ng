@@ -202,7 +202,7 @@ msgstr "表格和菜单边框的字符类型"
 
 #: rc.c:91
 msgid "Fold lines in TEXTAREA"
-msgstr "在文本区(TEXTAREA)中折叠行"
+msgstr "在文本区 (TEXTAREA) 中折叠行"
 
 #: rc.c:92
 msgid "Display INS, DEL, S and STRIKE element"
@@ -326,11 +326,11 @@ msgstr "启用标记操作"
 
 #: rc.c:130
 msgid "Enable Emacs-style line editing"
-msgstr "启用Emacs风格的行编辑"
+msgstr "启用 Emacs 风格的行编辑"
 
 #: rc.c:131
 msgid "Enable vi-like numeric prefix"
-msgstr "启动vi式的数字跳转"
+msgstr "启动 vi 式的数字跳转"
 
 #: rc.c:132
 msgid "Move cursor to top line when going to label"
@@ -414,7 +414,7 @@ msgstr "User-Agent 串"
 
 #: rc.c:152
 msgid "Accept-Encoding header"
-msgstr "接受的编码 (Accept-Encoding) 报 头"
+msgstr "接受的编码 (Accept-Encoding) 报头"
 
 #: rc.c:153
 msgid "Accept header"
@@ -490,7 +490,7 @@ msgstr "在保存时保留时间戳"
 
 #: rc.c:177
 msgid "Enable mouse"
-msgstr "开启鼠标"
+msgstr "启用鼠标"
 
 #: rc.c:178
 msgid "Scroll in reverse direction of mouse drag"
@@ -658,7 +658,7 @@ msgstr "使用 JIS X 0201 罗马字母于 ISO-2022-JP"
 
 #: rc.c:231
 msgid "Use JIS C 6226:1978 for ISO-2022-JP"
-msgstr "使用 JIS C 6226:1978 for ISO-2022-JP"
+msgstr "使用 JIS C 6226:1978 于 ISO-2022-JP"
 
 #: rc.c:232
 msgid "Use JIS X 0201 Katakana"
