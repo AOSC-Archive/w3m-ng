@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: w3m 0.5.3\n"
@@ -876,4 +875,10 @@ msgstr ""
 #.
 #: rc.c:1209
 msgid "en;q=1.0"
+msgstr ""
+
+msgid "Opening socket..."
+msgstr ""
+
+msgid "Viewing"
 msgstr ""
