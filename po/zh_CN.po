@@ -871,7 +871,7 @@ msgstr "字符集设置"
 #.
 #: rc.c:1209
 msgid "en;q=1.0"
-msgstr "zh-CN;q=1.0, zh-Hans;q=0.9, zh;q=0.8, en;q=0.5"
+msgstr "zh-CN;q=1.0, zh-Hans;q=0.9, zh;q=0.8, en;q=0.6"
 
 msgid "Opening socket..."
 msgstr "正在连接……"
