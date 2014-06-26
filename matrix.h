@@ -56,14 +56,14 @@ typedef struct matrix MAT;
 typedef struct vector VEC;
 typedef int PERM;
 
-extern int LUfactor ( Matrix, int * );
-extern Matrix m_inverse ( Matrix, Matrix );
-extern Matrix LUinverse ( Matrix, int *, Matrix );
-extern int LUsolve ( Matrix, int *, Vector, Vector );
-extern int Lsolve ( Matrix, Vector, Vector, double );
-extern int Usolve ( Matrix, Vector, Vector, double );
-extern Matrix new_matrix ( int );
-extern Vector new_vector ( int );
+extern int LUfactor(Matrix, int *);
+extern Matrix m_inverse(Matrix, Matrix);
+extern Matrix LUinverse(Matrix, int *, Matrix);
+extern int LUsolve(Matrix, int *, Vector, Vector);
+extern int Lsolve(Matrix, Vector, Vector, double);
+extern int Usolve(Matrix, Vector, Vector, double);
+extern Matrix new_matrix(int);
+extern Vector new_vector(int);
 
 #define _MATRIX_H
 #endif				/* _MATRIX_H */

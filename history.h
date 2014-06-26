@@ -18,13 +18,13 @@ typedef struct {
 } Hist;
 
 extern Hist *newHist();
-extern Hist *copyHist ( Hist *hist );
-extern HistItem *unshiftHist ( Hist *hist, char *ptr );
-extern HistItem *pushHist ( Hist *hist, char *ptr );
-extern HistItem *pushHashHist ( Hist *hist, char *ptr );
-extern HistItem *getHashHist ( Hist *hist, char *ptr );
-extern char *lastHist ( Hist *hist );
-extern char *nextHist ( Hist *hist );
-extern char *prevHist ( Hist *hist );
+extern Hist *copyHist(Hist *hist);
+extern HistItem *unshiftHist(Hist *hist, char *ptr);
+extern HistItem *pushHist(Hist *hist, char *ptr);
+extern HistItem *pushHashHist(Hist *hist, char *ptr);
+extern HistItem *getHashHist(Hist *hist, char *ptr);
+extern char *lastHist(Hist *hist);
+extern char *nextHist(Hist *hist);
+extern char *prevHist(Hist *hist);
 
 #endif				/* HISTORY_H */

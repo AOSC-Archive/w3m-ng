@@ -47,19 +47,19 @@ main()
     long longjunk;
     int dst[2];
 
-    _scrsize ( dst );
-    cp = getenv ( "WINDOWID" );
+    _scrsize(dst);
+    cp = getenv("WINDOWID");
 
-    if ( cp ) {
-        dpy = XOpenDisplay ( NULL );
+    if(cp) {
+        dpy = XOpenDisplay(NULL);
 
-        if ( dpy ) {
-            if ( XGetWindowAttributes ( dpy, window = atol ( cp ), &win_attributes ) )
-                if ( XGetWMNormalHints ( dpy, window, &hints, &longjunk ) )
-                    if ( hints.flags & PResizeInc && hints.width_inc
-                            && hints.height_inc ) {
-                        if ( hints.flags & ( PBaseSize | PMinSize ) ) {
-                            if ( hints.flags & PBaseSize ) {
+        if(dpy) {
+            if(XGetWindowAttributes(dpy, window = atol(cp), &win_attributes))
+                if(XGetWMNormalHints(dpy, window, &hints, &longjunk))
+                    if(hints.flags & PResizeInc && hints.width_inc
+                            && hints.height_inc) {
+                        if(hints.flags & (PBaseSize | PMinSize)) {
+                            if(hints.flags & PBaseSize) {
                                 win_attributes.width -= hints.base_width;
                                 win_attributes.height -= hints.base_height;
                             } else {
@@ -72,10 +72,10 @@ main()
                         dst[1] = win_attributes.height / hints.height_inc;
                     }
 
-            XCloseDisplay ( dpy );
+            XCloseDisplay(dpy);
         }
     }
 
-    printf ( "%i %i\n", dst[0], dst[1] );
+    printf("%i %i\n", dst[0], dst[1]);
     return 0;
 }

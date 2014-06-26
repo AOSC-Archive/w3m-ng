@@ -28,43 +28,43 @@ typedef struct _Str {
     int area_size;
 } *Str;
 
-Str Strnew ( void );
-Str Strnew_size ( int );
-Str Strnew_charp ( char * );
-Str Strnew_charp_n ( char *, int );
-Str Strnew_m_charp ( char *, ... );
-Str Strdup ( Str );
-void Strclear ( Str );
-void Strfree ( Str );
-void Strcopy ( Str, Str );
-void Strcopy_charp ( Str, char * );
-void Strcopy_charp_n ( Str, char *, int );
-void Strcat_charp_n ( Str, char *, int );
-void Strcat ( Str, Str );
-void Strcat_charp ( Str, char * );
-void Strcat_m_charp ( Str, ... );
-Str Strsubstr ( Str, int, int );
-void Strinsert_char ( Str, int, char );
-void Strinsert_charp ( Str, int, char * );
-void Strdelete ( Str, int, int );
-void Strtruncate ( Str, int );
-void Strlower ( Str );
-void Strupper ( Str );
-void Strchop ( Str );
-void Strshrink ( Str, int );
-void Strshrinkfirst ( Str, int );
-void Strremovefirstspaces ( Str );
-void Strremovetrailingspaces ( Str );
-Str Stralign_left ( Str, int );
-Str Stralign_right ( Str, int );
-Str Stralign_center ( Str, int );
+Str Strnew(void);
+Str Strnew_size(int);
+Str Strnew_charp(char *);
+Str Strnew_charp_n(char *, int);
+Str Strnew_m_charp(char *, ...);
+Str Strdup(Str);
+void Strclear(Str);
+void Strfree(Str);
+void Strcopy(Str, Str);
+void Strcopy_charp(Str, char *);
+void Strcopy_charp_n(Str, char *, int);
+void Strcat_charp_n(Str, char *, int);
+void Strcat(Str, Str);
+void Strcat_charp(Str, char *);
+void Strcat_m_charp(Str, ...);
+Str Strsubstr(Str, int, int);
+void Strinsert_char(Str, int, char);
+void Strinsert_charp(Str, int, char *);
+void Strdelete(Str, int, int);
+void Strtruncate(Str, int);
+void Strlower(Str);
+void Strupper(Str);
+void Strchop(Str);
+void Strshrink(Str, int);
+void Strshrinkfirst(Str, int);
+void Strremovefirstspaces(Str);
+void Strremovetrailingspaces(Str);
+Str Stralign_left(Str, int);
+Str Stralign_right(Str, int);
+Str Stralign_center(Str, int);
 
-Str Sprintf ( char *fmt, ... );
+Str Sprintf(char *fmt, ...);
 
-Str Strfgets ( FILE * );
-Str Strfgetall ( FILE * );
+Str Strfgets(FILE *);
+Str Strfgetall(FILE *);
 
-void Strgrow ( Str s );
+void Strgrow(Str s);
 
 #define Strcat_char(x,y) (((x)->length+1>=(x)->area_size)?Strgrow(x),0:0,(x)->ptr[(x)->length++]=(y),(x)->ptr[(x)->length]=0)
 #define Strcmp(x,y)                  strcmp((x)->ptr,(y)->ptr)

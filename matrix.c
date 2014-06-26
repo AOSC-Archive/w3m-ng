@@ -66,24 +66,24 @@ static double Tiny = 1.0e-30;
  */
 
 int
-LUfactor ( Matrix A, int *indexarray )
+LUfactor(Matrix A, int *indexarray)
 {
     int dim = A->dim, i, j, k, i_max, k_max;
     Vector scale;
     double mx, tmp;
 
-    scale = new_vector ( dim );
+    scale = new_vector(dim);
 
-    for ( i = 0; i < dim; i++ )
+    for(i = 0; i < dim; i++)
         indexarray[i] = i;
 
-    for ( i = 0; i < dim; i++ ) {
+    for(i = 0; i < dim; i++) {
         mx = 0.;
 
-        for ( j = 0; j < dim; j++ ) {
-            tmp = fabs ( M_VAL ( A, i, j ) );
+        for(j = 0; j < dim; j++) {
+            tmp = fabs(M_VAL(A, i, j));
 
-            if ( mx < tmp )
+            if(mx < tmp)
                 mx = tmp;
         }
 
@@ -92,38 +92,38 @@ LUfactor ( Matrix A, int *indexarray )
 
     k_max = dim - 1;
 
-    for ( k = 0; k < k_max; k++ ) {
+    for(k = 0; k < k_max; k++) {
         mx = 0.;
         i_max = -1;
 
-        for ( i = k; i < dim; i++ ) {
-            if ( fabs ( scale->ve[i] ) >= Tiny * fabs ( M_VAL ( A, i, k ) ) ) {
-                tmp = fabs ( M_VAL ( A, i, k ) ) / scale->ve[i];
+        for(i = k; i < dim; i++) {
+            if(fabs(scale->ve[i]) >= Tiny * fabs(M_VAL(A, i, k))) {
+                tmp = fabs(M_VAL(A, i, k)) / scale->ve[i];
 
-                if ( mx < tmp ) {
+                if(mx < tmp) {
                     mx = tmp;
                     i_max = i;
                 }
             }
         }
 
-        if ( i_max == -1 ) {
-            M_VAL ( A, k, k ) = 0.;
+        if(i_max == -1) {
+            M_VAL(A, k, k) = 0.;
             continue;
         }
 
-        if ( i_max != k ) {
-            SWAPI ( indexarray[i_max], indexarray[k] );
+        if(i_max != k) {
+            SWAPI(indexarray[i_max], indexarray[k]);
 
-            for ( j = 0; j < dim; j++ )
-                SWAPD ( M_VAL ( A, i_max, j ), M_VAL ( A, k, j ) );
+            for(j = 0; j < dim; j++)
+                SWAPD(M_VAL(A, i_max, j), M_VAL(A, k, j));
         }
 
-        for ( i = k + 1; i < dim; i++ ) {
-            tmp = M_VAL ( A, i, k ) = M_VAL ( A, i, k ) / M_VAL ( A, k, k );
+        for(i = k + 1; i < dim; i++) {
+            tmp = M_VAL(A, i, k) = M_VAL(A, i, k) / M_VAL(A, k, k);
 
-            for ( j = k + 1; j < dim; j++ )
-                M_VAL ( A, i, j ) -= tmp * M_VAL ( A, k, j );
+            for(j = k + 1; j < dim; j++)
+                M_VAL(A, i, j) -= tmp * M_VAL(A, k, j);
         }
     }
 
@@ -135,14 +135,14 @@ LUfactor ( Matrix A, int *indexarray )
  */
 
 int
-LUsolve ( Matrix A, int *indexarray, Vector b, Vector x )
+LUsolve(Matrix A, int *indexarray, Vector b, Vector x)
 {
     int i, dim = A->dim;
 
-    for ( i = 0; i < dim; i++ )
+    for(i = 0; i < dim; i++)
         x->ve[i] = b->ve[indexarray[i]];
 
-    if ( Lsolve ( A, x, x, 1. ) == -1 || Usolve ( A, x, x, 0. ) == -1 )
+    if(Lsolve(A, x, x, 1.) == -1 || Usolve(A, x, x, 0.) == -1)
         return -1;
 
     return 0;
@@ -152,39 +152,39 @@ LUsolve ( Matrix A, int *indexarray, Vector b, Vector x )
  *           -- uses LU factorisation */
 #if 0
 Matrix
-m_inverse ( Matrix A, Matrix out )
+m_inverse(Matrix A, Matrix out)
 {
-    int *indexarray = NewAtom_N ( int, A->dim );
-    Matrix A1 = new_matrix ( A->dim );
-    m_copy ( A, A1 );
-    LUfactor ( A1, indexarray );
-    return LUinverse ( A1, indexarray, out );
+    int *indexarray = NewAtom_N(int, A->dim);
+    Matrix A1 = new_matrix(A->dim);
+    m_copy(A, A1);
+    LUfactor(A1, indexarray);
+    return LUinverse(A1, indexarray, out);
 }
 #endif				/* 0 */
 
 Matrix
-LUinverse ( Matrix A, int *indexarray, Matrix out )
+LUinverse(Matrix A, int *indexarray, Matrix out)
 {
     int i, j, dim = A->dim;
     Vector tmp, tmp2;
 
-    if ( !out )
-        out = new_matrix ( dim );
+    if(!out)
+        out = new_matrix(dim);
 
-    tmp = new_vector ( dim );
-    tmp2 = new_vector ( dim );
+    tmp = new_vector(dim);
+    tmp2 = new_vector(dim);
 
-    for ( i = 0; i < dim; i++ ) {
-        for ( j = 0; j < dim; j++ )
+    for(i = 0; i < dim; i++) {
+        for(j = 0; j < dim; j++)
             tmp->ve[j] = 0.;
 
         tmp->ve[i] = 1.;
 
-        if ( LUsolve ( A, indexarray, tmp, tmp2 ) == -1 )
+        if(LUsolve(A, indexarray, tmp, tmp2) == -1)
             return NULL;
 
-        for ( j = 0; j < dim; j++ )
-            M_VAL ( out, j, i ) = tmp2->ve[j];
+        for(j = 0; j < dim; j++)
+            M_VAL(out, j, i) = tmp2->ve[j];
     }
 
     return out;
@@ -196,13 +196,13 @@ LUinverse ( Matrix A, int *indexarray, Matrix out )
  */
 
 int
-Usolve ( Matrix mat, Vector b, Vector out, double diag )
+Usolve(Matrix mat, Vector b, Vector out, double diag)
 {
     int i, j, i_lim, dim = mat->dim;
     double sum;
 
-    for ( i = dim - 1; i >= 0; i-- ) {
-        if ( b->ve[i] != 0. )
+    for(i = dim - 1; i >= 0; i--) {
+        if(b->ve[i] != 0.)
             break;
         else
             out->ve[i] = 0.;
@@ -210,17 +210,17 @@ Usolve ( Matrix mat, Vector b, Vector out, double diag )
 
     i_lim = i;
 
-    for ( ; i >= 0; i-- ) {
+    for(; i >= 0; i--) {
         sum = b->ve[i];
 
-        for ( j = i + 1; j <= i_lim; j++ )
-            sum -= M_VAL ( mat, i, j ) * out->ve[j];
+        for(j = i + 1; j <= i_lim; j++)
+            sum -= M_VAL(mat, i, j) * out->ve[j];
 
-        if ( diag == 0. ) {
-            if ( fabs ( M_VAL ( mat, i, i ) ) <= Tiny * fabs ( sum ) )
+        if(diag == 0.) {
+            if(fabs(M_VAL(mat, i, i)) <= Tiny * fabs(sum))
                 return -1;
             else
-                out->ve[i] = sum / M_VAL ( mat, i, i );
+                out->ve[i] = sum / M_VAL(mat, i, i);
         } else
             out->ve[i] = sum / diag;
     }
@@ -233,13 +233,13 @@ Usolve ( Matrix mat, Vector b, Vector out, double diag )
  */
 
 int
-Lsolve ( Matrix mat, Vector b, Vector out, double diag )
+Lsolve(Matrix mat, Vector b, Vector out, double diag)
 {
     int i, j, i_lim, dim = mat->dim;
     double sum;
 
-    for ( i = 0; i < dim; i++ ) {
-        if ( b->ve[i] != 0. )
+    for(i = 0; i < dim; i++) {
+        if(b->ve[i] != 0.)
             break;
         else
             out->ve[i] = 0.;
@@ -247,17 +247,17 @@ Lsolve ( Matrix mat, Vector b, Vector out, double diag )
 
     i_lim = i;
 
-    for ( ; i < dim; i++ ) {
+    for(; i < dim; i++) {
         sum = b->ve[i];
 
-        for ( j = i_lim; j < i; j++ )
-            sum -= M_VAL ( mat, i, j ) * out->ve[j];
+        for(j = i_lim; j < i; j++)
+            sum -= M_VAL(mat, i, j) * out->ve[j];
 
-        if ( diag == 0. ) {
-            if ( fabs ( M_VAL ( mat, i, i ) ) <= Tiny * fabs ( sum ) )
+        if(diag == 0.) {
+            if(fabs(M_VAL(mat, i, i)) <= Tiny * fabs(sum))
                 return -1;
             else
-                out->ve[i] = sum / M_VAL ( mat, i, i );
+                out->ve[i] = sum / M_VAL(mat, i, i);
         } else
             out->ve[i] = sum / diag;
     }
@@ -270,13 +270,13 @@ Lsolve ( Matrix mat, Vector b, Vector out, double diag )
  */
 
 Matrix
-new_matrix ( int n )
+new_matrix(int n)
 {
     Matrix mat;
 
-    mat = New ( struct matrix );
+    mat = New(struct matrix);
     mat->dim = n;
-    mat->me = NewAtom_N ( double, n * n );
+    mat->me = NewAtom_N(double, n * n);
     return mat;
 }
 
@@ -285,12 +285,12 @@ new_matrix ( int n )
  */
 
 Vector
-new_vector ( int n )
+new_vector(int n)
 {
     Vector vec;
 
-    vec = New ( struct vector );
+    vec = New(struct vector);
     vec->dim = n;
-    vec->ve = NewAtom_N ( double, n );
+    vec->ve = NewAtom_N(double, n);
     return vec;
 }

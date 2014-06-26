@@ -18,7 +18,7 @@ static int bg_r = 0, bg_g = 0, bg_b = 0;
 #endif
 
 void
-fb_image_set_bg ( int r, int g, int b )
+fb_image_set_bg(int r, int g, int b)
 {
     bg_r = r;
     bg_g = g;
@@ -26,7 +26,7 @@ fb_image_set_bg ( int r, int g, int b )
 }
 
 int
-fb_image_clear ( int x, int y, int w, int h )
+fb_image_clear(int x, int y, int w, int h)
 {
-    return fb_clear ( x, y, w, h, bg_r, bg_g, bg_b );
+    return fb_clear(x, y, w, h, bg_r, bg_g, bg_b);
 }

@@ -21,7 +21,7 @@ typedef struct _MenuItem {
     char *label;
     int *variable;
     int value;
-    void ( *func ) ();
+    void (*func)();
     struct _Menu *popup;
     char *keys;
     char *data;
@@ -41,7 +41,7 @@ typedef struct _Menu {
     int select;
     int offset;
     int active;
-    int ( *keymap[128] ) ( char c );
+    int (*keymap[128])(char c);
     int keyselect[128];
 } Menu;
 

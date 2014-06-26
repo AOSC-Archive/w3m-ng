@@ -25,8 +25,8 @@ extern int LASTLINE;
 extern int cygwin_mouse_btn_swapped;
 #endif
 #ifdef SUPPORT_WIN9X_CONSOLE_MBCS
-extern void enable_win9x_console_input ( void );
-extern void disable_win9x_console_input ( void );
+extern void enable_win9x_console_input(void);
+extern void disable_win9x_console_input(void);
 #endif
 #endif
 

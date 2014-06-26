@@ -18,10 +18,10 @@ extern Hash_##sym *newHash_##sym(int size); \
 extern void putHash_##sym(Hash_##sym *t, keytype key, type value); \
 extern type getHash_##sym(Hash_##sym *t, keytype key, type failval);
 
-defhash ( char *, int, si )
-defhash ( char *, char *, ss )
-defhash ( char *, void *, sv )
-defhash ( int, void *, iv )
+defhash(char *, int, si)
+defhash(char *, char *, ss)
+defhash(char *, void *, sv)
+defhash(int, void *, iv)
 #define defhashfunc(keytype,type,sym) \
 Hash_##sym * \
 newHash_##sym(int size)\

@@ -32,40 +32,40 @@ static char *alt_latin1[ 96 ] = {
 /* *INDENT-ON* */
 
 char *
-conv_entity ( unsigned int c )
+conv_entity(unsigned int c)
 {
     char b = c & 0xff;
 
-    if ( c < 0x20 )		/* C0 */
+    if(c < 0x20)		/* C0 */
         return " ";
 
-    if ( c < 0x7f )		/* ASCII */
-        return Strnew_charp_n ( &b, 1 )->ptr;
+    if(c < 0x7f)		/* ASCII */
+        return Strnew_charp_n(&b, 1)->ptr;
 
-    if ( c < 0xa0 )		/* DEL, C1 */
+    if(c < 0xa0)		/* DEL, C1 */
         return " ";
 
-    if ( c == 0xa0 )
+    if(c == 0xa0)
         return NBSP;
 
-    if ( c < 0x100 ) {		/* Latin1 (ISO 8859-1) */
-        if ( UseAltEntity )
+    if(c < 0x100) {		/* Latin1 (ISO 8859-1) */
+        if(UseAltEntity)
             return alt_latin1[c - 0xa0];
 
 #ifdef USE_M17N
-        return wc_conv_n ( &b, 1, WC_CES_ISO_8859_1, InnerCharset )->ptr;
+        return wc_conv_n(&b, 1, WC_CES_ISO_8859_1, InnerCharset)->ptr;
 #else
-        return Strnew_charp_n ( &b, 1 )->ptr;
+        return Strnew_charp_n(&b, 1)->ptr;
 #endif
     }
 
 #ifdef USE_M17N
 #ifdef USE_UNICODE
 
-    if ( c <= WC_C_UCS4_END ) {	/* Unicode */
+    if(c <= WC_C_UCS4_END) {	/* Unicode */
         wc_uchar utf8[7];
-        wc_ucs_to_utf8 ( c, utf8 );
-        return wc_conv ( ( char * ) utf8, WC_CES_UTF_8, InnerCharset )->ptr;
+        wc_ucs_to_utf8(c, utf8);
+        return wc_conv((char *) utf8, WC_CES_UTF_8, InnerCharset)->ptr;
     }
 
 #endif

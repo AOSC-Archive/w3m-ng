@@ -38,16 +38,16 @@ wc_uint8 WC_DETECT_MAP[ 0x100 ] = {
 #define SET_BROKEN_ERROR(x) ((x) = ((x) & DETECT_BROKEN) ? DETECT_ERROR : ((x) | DETECT_BROKEN))
 
 void
-wc_create_detect_map ( wc_ces ces, wc_bool esc )
+wc_create_detect_map(wc_ces ces, wc_bool esc)
 {
     static wc_ces detect_ces = WC_CES_US_ASCII;
     int i;
 
-    if ( ces != detect_ces ) {
-        if ( ces & WC_CES_T_VIET ) {
+    if(ces != detect_ces) {
+        if(ces & WC_CES_T_VIET) {
             wc_uint8 *map = NULL;
 
-            switch ( ces ) {
+            switch(ces) {
             case WC_CES_TCVN_5712:
                 map = wc_c0_tcvn57122_map;
                 break;
@@ -61,29 +61,29 @@ wc_create_detect_map ( wc_ces ces, wc_bool esc )
                 break;
             }
 
-            for ( i = 0; i < 0x20; i++ )
+            for(i = 0; i < 0x20; i++)
                 WC_DETECT_MAP[i] = map[i] ? 1 : 0;
         } else {
-            for ( i = 0; i < 0x20; i++ )
+            for(i = 0; i < 0x20; i++)
                 WC_DETECT_MAP[i] = 0;
 
-            WC_DETECT_MAP[WC_C_HZ_TILDA] = ( ces == WC_CES_HZ_GB_2312 ) ? 1 : 0;
+            WC_DETECT_MAP[WC_C_HZ_TILDA] = (ces == WC_CES_HZ_GB_2312) ? 1 : 0;
 #ifdef USE_UNICODE
-            WC_DETECT_MAP[WC_C_UTF7_PLUS] = ( ces == WC_CES_UTF_7 ) ? 1 : 0;
+            WC_DETECT_MAP[WC_C_UTF7_PLUS] = (ces == WC_CES_UTF_7) ? 1 : 0;
 #endif
         }
 
         detect_ces = ces;
     }
 
-    WC_DETECT_MAP[WC_C_ESC] = ( esc || ( ces & WC_CES_T_ISO_2022 ) ) ? 1 : 0;
+    WC_DETECT_MAP[WC_C_ESC] = (esc || (ces & WC_CES_T_ISO_2022)) ? 1 : 0;
     return;
 }
 
 wc_ces
-wc_auto_detect ( char *is, size_t len, wc_ces hint )
+wc_auto_detect(char *is, size_t len, wc_ces hint)
 {
-    wc_uchar *p = ( wc_uchar * ) is;
+    wc_uchar *p = (wc_uchar *) is;
     wc_uchar *ep = p + len;
     wc_uchar *q;
     wc_ces euc = 0, priv = 0;
@@ -102,15 +102,15 @@ wc_auto_detect ( char *is, size_t len, wc_ces hint )
     int utf8_next = 0;
 #endif
 
-    wc_create_detect_map ( hint, WC_TRUE );
+    wc_create_detect_map(hint, WC_TRUE);
 
-    for ( ; p < ep && ! WC_DETECT_MAP[*p]; p++ )
+    for(; p < ep && ! WC_DETECT_MAP[*p]; p++)
         ;
 
-    if ( p == ep )
+    if(p == ep)
         return hint;
 
-    switch ( hint ) {
+    switch(hint) {
     case WC_CES_ISO_2022_JP:
     case WC_CES_ISO_2022_JP_2:
     case WC_CES_ISO_2022_JP_3:
@@ -171,7 +171,7 @@ wc_auto_detect ( char *is, size_t len, wc_ces hint )
         break;
 
     default:
-        if ( hint & WC_CES_T_ISO_8859 ) {
+        if(hint & WC_CES_T_ISO_8859) {
             iso_detect = latin_detect = DETECT_NORMAL;
             possible = 2;
         } else {
@@ -185,59 +185,59 @@ wc_auto_detect ( char *is, size_t len, wc_ces hint )
 
 #ifdef USE_UNICODE
 
-    if ( priv_detect == DETECT_ERROR ) {
+    if(priv_detect == DETECT_ERROR) {
         utf8_detect = DETECT_NORMAL;
         possible++;
     }
 
 #endif
 
-    wc_input_init ( WC_CES_US_ASCII, &st );
+    wc_input_init(WC_CES_US_ASCII, &st);
 
-    for ( ; p < ep; p++ ) {
-        if ( possible == 0 || ( possible == 1 && ok ) )
+    for(; p < ep; p++) {
+        if(possible == 0 || (possible == 1 && ok))
             break;
 
-        if ( iso_detect != DETECT_ERROR ) {
-            switch ( *p ) {
+        if(iso_detect != DETECT_ERROR) {
+            switch(*p) {
             case WC_C_ESC:
-                if ( * ( p+1 ) == WC_C_MBCS ) {
+                if(* (p+1) == WC_C_MBCS) {
                     q = p;
 
-                    if ( ! wc_parse_iso2022_esc ( &q, &st ) )
+                    if(! wc_parse_iso2022_esc(&q, &st))
                         break;
 
-                    if ( st.design[0] == WC_CCS_JIS_C_6226 ||
-                            st.design[0] == WC_CCS_JIS_X_0208 )
+                    if(st.design[0] == WC_CCS_JIS_C_6226 ||
+                            st.design[0] == WC_CCS_JIS_X_0208)
                         ;
-                    else if ( st.design[0] == WC_CCS_JIS_X_0213_1 ||
-                              st.design[0] == WC_CCS_JIS_X_0213_2 )
+                    else if(st.design[0] == WC_CCS_JIS_X_0213_1 ||
+                            st.design[0] == WC_CCS_JIS_X_0213_2)
                         iso2022jp3 = WC_TRUE;
-                    else if ( WC_CCS_TYPE ( st.design[0] ) == WC_CCS_A_CS94W )
+                    else if(WC_CCS_TYPE(st.design[0]) == WC_CCS_A_CS94W)
                         iso2022jp2 = WC_TRUE;
 
-                    if ( st.design[1] == WC_CCS_KS_X_1001 )
+                    if(st.design[1] == WC_CCS_KS_X_1001)
                         iso2022kr = WC_TRUE;
-                    else if ( st.design[1] == WC_CCS_GB_2312 ||
-                              st.design[1] == WC_CCS_ISO_IR_165 ||
-                              st.design[1] == WC_CCS_CNS_11643_1 )
+                    else if(st.design[1] == WC_CCS_GB_2312 ||
+                            st.design[1] == WC_CCS_ISO_IR_165 ||
+                            st.design[1] == WC_CCS_CNS_11643_1)
                         iso2022cn = WC_TRUE;
 
-                    if ( WC_CCS_TYPE ( st.design[2] ) == WC_CCS_A_CS94W ||
-                            WC_CCS_TYPE ( st.design[3] ) == WC_CCS_A_CS94W )
+                    if(WC_CCS_TYPE(st.design[2]) == WC_CCS_A_CS94W ||
+                            WC_CCS_TYPE(st.design[3]) == WC_CCS_A_CS94W)
                         iso2022cn = WC_TRUE;
-                } else if ( * ( p+1 ) == WC_C_G2_CS96 ) {
+                } else if(* (p+1) == WC_C_G2_CS96) {
                     q = p;
 
-                    if ( ! wc_parse_iso2022_esc ( &q, &st ) )
+                    if(! wc_parse_iso2022_esc(&q, &st))
                         break;
 
-                    if ( WC_CCS_TYPE ( st.design[2] ) == WC_CCS_A_CS96 )
+                    if(WC_CCS_TYPE(st.design[2]) == WC_CCS_A_CS96)
                         iso2022jp2 = WC_TRUE;
-                } else if ( * ( p+1 ) == WC_C_CSWSR ) {
+                } else if(* (p+1) == WC_C_CSWSR) {
                     q = p;
 
-                    if ( ! wc_parse_iso2022_esc ( &q, &st ) )
+                    if(! wc_parse_iso2022_esc(&q, &st))
                         break;
 
                     possible = 0;
@@ -258,7 +258,7 @@ wc_auto_detect ( char *is, size_t len, wc_ces hint )
                 break;
 
             default:
-                if ( *p & 0x80 ) {
+                if(*p & 0x80) {
                     iso_detect = DETECT_ERROR;
                     possible--;
                 }
@@ -267,18 +267,18 @@ wc_auto_detect ( char *is, size_t len, wc_ces hint )
             }
         }
 
-        if ( euc_detect != DETECT_ERROR ) {
-            switch ( euc_state ) {
+        if(euc_detect != DETECT_ERROR) {
+            switch(euc_state) {
             case WC_EUC_NOSTATE:
-                switch ( WC_ISO_MAP[*p] ) {
+                switch(WC_ISO_MAP[*p]) {
                 case WC_ISO_MAP_GR:
                     euc_state = WC_EUC_MBYTE1;
                     break;
 
                 case WC_ISO_MAP_SS2:
-                    if ( euc == WC_CES_EUC_JP )
+                    if(euc == WC_CES_EUC_JP)
                         euc_state = WC_EUC_MBYTE1;
-                    else if ( euc == WC_CES_EUC_TW )
+                    else if(euc == WC_CES_EUC_TW)
                         euc_state = WC_EUC_TW_SS2;
                     else
                         euc_detect = DETECT_ERROR;
@@ -286,8 +286,8 @@ wc_auto_detect ( char *is, size_t len, wc_ces hint )
                     break;
 
                 case WC_ISO_MAP_SS3:
-                    if ( euc == WC_CES_EUC_JP &&
-                            WC_ISO_MAP[* ( p+1 )] == WC_ISO_MAP_GR )
+                    if(euc == WC_CES_EUC_JP &&
+                            WC_ISO_MAP[* (p+1)] == WC_ISO_MAP_GR)
                         ;
                     else
                         euc_detect = DETECT_ERROR;
@@ -303,43 +303,43 @@ wc_auto_detect ( char *is, size_t len, wc_ces hint )
                 break;
 
             case WC_EUC_MBYTE1:
-                if ( WC_ISO_MAP[*p] == WC_ISO_MAP_GR ) {
-                    SET_DETECT ( euc_detect, DETECT_OK );
+                if(WC_ISO_MAP[*p] == WC_ISO_MAP_GR) {
+                    SET_DETECT(euc_detect, DETECT_OK);
                     ok = WC_TRUE;
                 } else
-                    SET_BROKEN_ERROR ( euc_detect );
+                    SET_BROKEN_ERROR(euc_detect);
 
                 euc_state = WC_EUC_NOSTATE;
                 break;
 
             case WC_EUC_TW_SS2:
-                if ( ! ( 0xa0 <= *p && *p <= 0xb0 ) ||
-                        WC_ISO_MAP[* ( p+1 )] != WC_ISO_MAP_GR )
+                if(!(0xa0 <= *p && *p <= 0xb0) ||
+                        WC_ISO_MAP[* (p+1)] != WC_ISO_MAP_GR)
                     euc_detect = DETECT_ERROR;
 
                 euc_state = WC_EUC_NOSTATE;
                 break;
             }
 
-            if ( euc_detect == DETECT_ERROR )
+            if(euc_detect == DETECT_ERROR)
                 possible--;
         }
 
-        if ( sjis_detect != DETECT_ERROR ) {
-            switch ( sjis_state ) {
+        if(sjis_detect != DETECT_ERROR) {
+            switch(sjis_state) {
             case WC_SJIS_NOSTATE:
-                switch ( WC_SJIS_MAP[*p] ) {
+                switch(WC_SJIS_MAP[*p]) {
                 case WC_SJIS_MAP_SL:
                 case WC_SJIS_MAP_SH:
                     sjis_state = WC_SJIS_SHIFT_L;
                     break;
 
                 case WC_SJIS_MAP_SK:
-                    SET_DETECT ( sjis_detect, DETECT_POSSIBLE );
+                    SET_DETECT(sjis_detect, DETECT_POSSIBLE);
                     break;
 
                 case WC_SJIS_MAP_SX:
-                    if ( WcOption.use_jisx0213 ) {
+                    if(WcOption.use_jisx0213) {
                         sjis_state = WC_SJIS_SHIFT_X;
                         break;
                     }
@@ -354,18 +354,18 @@ wc_auto_detect ( char *is, size_t len, wc_ces hint )
                 break;
 
             case WC_SJIS_SHIFT_L:
-                if ( WC_SJIS_MAP[*p] & WC_SJIS_MAP_LB ) {
-                    SET_DETECT ( sjis_detect, DETECT_OK );
+                if(WC_SJIS_MAP[*p] & WC_SJIS_MAP_LB) {
+                    SET_DETECT(sjis_detect, DETECT_OK);
                     ok = WC_TRUE;
                 } else
-                    SET_BROKEN_ERROR ( sjis_detect );
+                    SET_BROKEN_ERROR(sjis_detect);
 
                 sjis_state = WC_SJIS_NOSTATE;
                 break;
 
             case WC_SJIS_SHIFT_X:
-                if ( WC_SJIS_MAP[*p] & WC_SJIS_MAP_LB )
-                    SET_DETECT ( sjis_detect, DETECT_POSSIBLE );
+                if(WC_SJIS_MAP[*p] & WC_SJIS_MAP_LB)
+                    SET_DETECT(sjis_detect, DETECT_POSSIBLE);
                 else
                     sjis_detect = DETECT_ERROR;
 
@@ -373,14 +373,14 @@ wc_auto_detect ( char *is, size_t len, wc_ces hint )
                 break;
             }
 
-            if ( sjis_detect == DETECT_ERROR )
+            if(sjis_detect == DETECT_ERROR)
                 possible--;
         }
 
-        if ( big5_detect != DETECT_ERROR ) {
-            switch ( big5_state ) {
+        if(big5_detect != DETECT_ERROR) {
+            switch(big5_state) {
             case WC_BIG5_NOSTATE:
-                switch ( WC_BIG5_MAP[*p] ) {
+                switch(WC_BIG5_MAP[*p]) {
                 case WC_BIG5_MAP_UB:
                     big5_state = WC_BIG5_MBYTE1;
                     break;
@@ -393,34 +393,34 @@ wc_auto_detect ( char *is, size_t len, wc_ces hint )
                 break;
 
             case WC_BIG5_MBYTE1:
-                if ( WC_BIG5_MAP[*p] & WC_BIG5_MAP_LB ) {
-                    SET_DETECT ( big5_detect, DETECT_OK );
+                if(WC_BIG5_MAP[*p] & WC_BIG5_MAP_LB) {
+                    SET_DETECT(big5_detect, DETECT_OK);
                     ok = WC_TRUE;
                 } else
-                    SET_BROKEN_ERROR ( big5_detect );
+                    SET_BROKEN_ERROR(big5_detect);
 
                 big5_state = WC_BIG5_NOSTATE;
                 break;
             }
 
-            if ( big5_detect == DETECT_ERROR )
+            if(big5_detect == DETECT_ERROR)
                 possible--;
         }
 
-        if ( hz_detect != DETECT_ERROR ) {
-            if ( *p & 0x80 ) {
+        if(hz_detect != DETECT_ERROR) {
+            if(*p & 0x80) {
                 hz_detect = DETECT_ERROR;
                 possible--;
             } else {
-                switch ( hz_state ) {
+                switch(hz_state) {
                 case WC_HZ_NOSTATE:
-                    if ( *p == WC_C_HZ_TILDA )
+                    if(*p == WC_C_HZ_TILDA)
                         hz_state = WC_HZ_TILDA;
 
                     break;
 
                 case WC_HZ_TILDA:
-                    if ( *p == WC_C_HZ_SI )
+                    if(*p == WC_C_HZ_SI)
                         hz_state = WC_HZ_MBYTE;
                     else
                         hz_state = WC_HZ_NOSTATE;
@@ -428,7 +428,7 @@ wc_auto_detect ( char *is, size_t len, wc_ces hint )
                     break;
 
                 case WC_HZ_TILDA_MB:
-                    if ( *p == WC_C_HZ_SO )
+                    if(*p == WC_C_HZ_SO)
                         hz_state = WC_HZ_NOSTATE;
                     else
                         hz_state = WC_HZ_MBYTE;
@@ -436,7 +436,7 @@ wc_auto_detect ( char *is, size_t len, wc_ces hint )
                     break;
 
                 case WC_HZ_MBYTE:
-                    if ( *p == WC_C_HZ_TILDA )
+                    if(*p == WC_C_HZ_TILDA)
                         hz_state = WC_HZ_TILDA_MB;
                     else
                         hz_state = WC_HZ_MBYTE1;
@@ -452,11 +452,11 @@ wc_auto_detect ( char *is, size_t len, wc_ces hint )
             }
         }
 
-        if ( latin_detect != DETECT_ERROR ) {
-            switch ( WC_ISO_MAP[*p] & WC_ISO_MAP_CG ) {
+        if(latin_detect != DETECT_ERROR) {
+            switch(WC_ISO_MAP[*p] & WC_ISO_MAP_CG) {
             case WC_ISO_MAP_GR:
             case WC_ISO_MAP_GR96:
-                SET_DETECT ( latin_detect, DETECT_OK );
+                SET_DETECT(latin_detect, DETECT_OK);
                 ok = WC_TRUE;
                 break;
 
@@ -465,13 +465,13 @@ wc_auto_detect ( char *is, size_t len, wc_ces hint )
                 break;
             }
 
-            if ( latin_detect == DETECT_ERROR )
+            if(latin_detect == DETECT_ERROR)
                 possible--;
         }
 
-        if ( priv_detect != DETECT_ERROR ) {
-            if ( *p != WC_C_ESC && WC_DETECT_MAP[*p] ) {
-                SET_DETECT ( priv_detect, DETECT_OK );
+        if(priv_detect != DETECT_ERROR) {
+            if(*p != WC_C_ESC && WC_DETECT_MAP[*p]) {
+                SET_DETECT(priv_detect, DETECT_OK);
                 ok = WC_TRUE;
             }
 
@@ -483,10 +483,10 @@ wc_auto_detect ( char *is, size_t len, wc_ces hint )
 
 #ifdef USE_UNICODE
 
-        if ( utf8_detect != DETECT_ERROR ) {
-            switch ( utf8_state ) {
+        if(utf8_detect != DETECT_ERROR) {
+            switch(utf8_state) {
             case WC_UTF8_NOSTATE:
-                switch ( utf8_next = WC_UTF8_MAP[*p] ) {
+                switch(utf8_next = WC_UTF8_MAP[*p]) {
                 case 1:
                 case 8:
                     break;
@@ -505,7 +505,7 @@ wc_auto_detect ( char *is, size_t len, wc_ces hint )
                 break;
 
             case WC_UTF8_NEXT:
-                if ( WC_UTF8_MAP[*p] ) {
+                if(WC_UTF8_MAP[*p]) {
                     utf8_detect = DETECT_ERROR;
                     utf8_state = WC_UTF8_NOSTATE;
                     break;
@@ -513,8 +513,8 @@ wc_auto_detect ( char *is, size_t len, wc_ces hint )
 
                 utf8_next--;
 
-                if ( ! utf8_next ) {
-                    SET_DETECT ( utf8_detect, DETECT_OK );
+                if(! utf8_next) {
+                    SET_DETECT(utf8_detect, DETECT_OK);
                     ok = WC_TRUE;
                     utf8_state = WC_UTF8_NOSTATE;
                 }
@@ -522,55 +522,55 @@ wc_auto_detect ( char *is, size_t len, wc_ces hint )
                 break;
             }
 
-            if ( utf8_detect == DETECT_ERROR )
+            if(utf8_detect == DETECT_ERROR)
                 possible--;
         }
 
 #endif
     }
 
-    if ( iso_detect != DETECT_ERROR ) {
-        if ( iso_detect == DETECT_NORMAL ) {
-            if ( hz_detect == DETECT_OK )
+    if(iso_detect != DETECT_ERROR) {
+        if(iso_detect == DETECT_NORMAL) {
+            if(hz_detect == DETECT_OK)
                 return WC_CES_HZ_GB_2312;
 
-            if ( priv_detect == DETECT_OK )
+            if(priv_detect == DETECT_OK)
                 return priv;
 
             return WC_CES_US_ASCII;
         }
 
-        switch ( euc ) {
+        switch(euc) {
         case WC_CES_EUC_CN:
         case WC_CES_EUC_TW:
-            if ( iso2022cn )
+            if(iso2022cn)
                 return WC_CES_ISO_2022_CN;
 
             break;
 
         case WC_CES_EUC_KR:
-            if ( iso2022kr )
+            if(iso2022kr)
                 return WC_CES_ISO_2022_KR;
 
             break;
         }
 
-        if ( iso2022jp3 )
+        if(iso2022jp3)
             return WC_CES_ISO_2022_JP_3;
 
-        if ( iso2022jp2 )
+        if(iso2022jp2)
             return WC_CES_ISO_2022_JP_2;
 
-        if ( iso2022cn )
+        if(iso2022cn)
             return WC_CES_ISO_2022_CN;
 
-        if ( iso2022kr )
+        if(iso2022kr)
             return WC_CES_ISO_2022_KR;
 
         return WC_CES_ISO_2022_JP;
     }
 
-    switch ( hint ) {
+    switch(hint) {
     case WC_CES_ISO_2022_JP:
     case WC_CES_ISO_2022_JP_2:
     case WC_CES_ISO_2022_JP_3:
@@ -582,20 +582,20 @@ wc_auto_detect ( char *is, size_t len, wc_ces hint )
     case WC_CES_EUC_CN:
     case WC_CES_EUC_TW:
     case WC_CES_EUC_KR:
-        if ( euc_detect != DETECT_ERROR )
+        if(euc_detect != DETECT_ERROR)
             return hint;
 
         break;
 
     case WC_CES_SHIFT_JIS:
     case WC_CES_SHIFT_JISX0213:
-        if ( sjis_detect != DETECT_ERROR )
+        if(sjis_detect != DETECT_ERROR)
             return hint;
 
         break;
 
     case WC_CES_BIG5:
-        if ( big5_detect != DETECT_ERROR )
+        if(big5_detect != DETECT_ERROR)
             return hint;
 
         break;
@@ -607,63 +607,63 @@ wc_auto_detect ( char *is, size_t len, wc_ces hint )
 
     case WC_CES_US_ASCII:
 #ifdef USE_UNICODE
-        if ( utf8_detect != DETECT_ERROR )
+        if(utf8_detect != DETECT_ERROR)
             return hint;
 
 #endif
 
-        if ( latin_detect != DETECT_ERROR )
+        if(latin_detect != DETECT_ERROR)
             return WC_CES_ISO_8859_1;
 
         return hint;
 
     default:
-        if ( latin_detect != DETECT_ERROR )
+        if(latin_detect != DETECT_ERROR)
             return hint;
 
-        if ( priv_detect != DETECT_ERROR )
+        if(priv_detect != DETECT_ERROR)
             return hint;
 
 #ifdef USE_UNICODE
 
-        if ( utf8_detect != DETECT_ERROR )
+        if(utf8_detect != DETECT_ERROR)
             return WC_CES_UTF_8;
 
 #endif
         return hint;
     }
 
-    if ( euc_detect == DETECT_OK )
+    if(euc_detect == DETECT_OK)
         return euc;
 
-    if ( sjis_detect == DETECT_OK )
+    if(sjis_detect == DETECT_OK)
         return WC_CES_SHIFT_JIS;
 
-    if ( big5_detect == DETECT_OK )
+    if(big5_detect == DETECT_OK)
         return WC_CES_BIG5;
 
 #ifdef USE_UNICODE
 
-    if ( utf8_detect == DETECT_OK )
+    if(utf8_detect == DETECT_OK)
         return WC_CES_UTF_8;
 
-    if ( sjis_detect & DETECT_POSSIBLE )
+    if(sjis_detect & DETECT_POSSIBLE)
         return WC_CES_SHIFT_JIS;
 
 #endif
 
-    if ( euc_detect != DETECT_ERROR )
+    if(euc_detect != DETECT_ERROR)
         return euc;
 
-    if ( sjis_detect != DETECT_ERROR )
+    if(sjis_detect != DETECT_ERROR)
         return WC_CES_SHIFT_JIS;
 
-    if ( big5_detect != DETECT_ERROR )
+    if(big5_detect != DETECT_ERROR)
         return WC_CES_BIG5;
 
 #ifdef USE_UNICODE
 
-    if ( utf8_detect != DETECT_ERROR )
+    if(utf8_detect != DETECT_ERROR)
         return WC_CES_UTF_8;
 
 #endif

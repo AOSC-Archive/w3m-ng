@@ -71,10 +71,10 @@ typedef struct form_select_option {
     FormSelectOptionItem *last;
 } FormSelectOption;
 
-void addSelectOption ( FormSelectOption *fso, Str value, Str label, int chk );
-void chooseSelectOption ( struct form_item_list *fi, FormSelectOptionItem *item );
-void updateSelectOption ( struct form_item_list *fi, FormSelectOptionItem *item );
-int formChooseOptionByMenu ( struct form_item_list *fi, int x, int y );
+void addSelectOption(FormSelectOption *fso, Str value, Str label, int chk);
+void chooseSelectOption(struct form_item_list *fi, FormSelectOptionItem *item);
+void updateSelectOption(struct form_item_list *fi, FormSelectOptionItem *item);
+int formChooseOptionByMenu(struct form_item_list *fi, int x, int y);
 #endif				/* MENU_SELECT */
 
 typedef struct form_item_list {

@@ -13,9 +13,9 @@
 #include "map/tcvn5712_combining.map"
 
 wc_bool
-wc_is_combining ( wc_wchar_t cc )
+wc_is_combining(wc_wchar_t cc)
 {
-    switch ( WC_CCS_SET ( cc.ccs ) ) {
+    switch(WC_CCS_SET(cc.ccs)) {
     case WC_CCS_ISO_8859_6:
         return iso88596_combining_map[cc.code & 0x7f];
 
@@ -44,7 +44,7 @@ wc_is_combining ( wc_wchar_t cc )
     case WC_CCS_UCS2:
     case WC_CCS_UCS4:
     case WC_CCS_UCS_TAG:
-        return wc_is_ucs_combining ( cc.code );
+        return wc_is_ucs_combining(cc.code);
 #endif
     }
 

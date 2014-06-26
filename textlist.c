@@ -7,10 +7,10 @@
 /* General doubly linked list */
 
 ListItem *
-newListItem ( void *s, ListItem *n, ListItem *p )
+newListItem(void *s, ListItem *n, ListItem *p)
 {
     ListItem *it;
-    it = New ( ListItem );
+    it = New(ListItem);
     it->ptr = s;
     it->next = n;
     it->prev = p;
@@ -20,23 +20,23 @@ newListItem ( void *s, ListItem *n, ListItem *p )
 GeneralList *
 newGeneralList()
 {
-    GeneralList *tl = New ( GeneralList );
+    GeneralList *tl = New(GeneralList);
     tl->first = tl->last = NULL;
     tl->nitem = 0;
     return tl;
 }
 
 void
-pushValue ( GeneralList *tl, void *s )
+pushValue(GeneralList *tl, void *s)
 {
     ListItem *it;
 
-    if ( s == NULL )
+    if(s == NULL)
         return;
 
-    it = newListItem ( s, NULL, tl->last );
+    it = newListItem(s, NULL, tl->last);
 
-    if ( tl->first == NULL ) {
+    if(tl->first == NULL) {
         tl->first = it;
         tl->last = it;
         tl->nitem = 1;
@@ -48,17 +48,17 @@ pushValue ( GeneralList *tl, void *s )
 }
 
 void *
-popValue ( GeneralList *tl )
+popValue(GeneralList *tl)
 {
     ListItem *f;
 
-    if ( tl == NULL || tl->first == NULL )
+    if(tl == NULL || tl->first == NULL)
         return NULL;
 
     f = tl->first;
     tl->first = f->next;
 
-    if ( tl->first )
+    if(tl->first)
         tl->first->prev = NULL;
     else
         tl->last = NULL;
@@ -68,17 +68,17 @@ popValue ( GeneralList *tl )
 }
 
 void *
-rpopValue ( GeneralList *tl )
+rpopValue(GeneralList *tl)
 {
     ListItem *f;
 
-    if ( tl == NULL || tl->last == NULL )
+    if(tl == NULL || tl->last == NULL)
         return NULL;
 
     f = tl->last;
     tl->last = f->prev;
 
-    if ( tl->last )
+    if(tl->last)
         tl->last->next = NULL;
     else
         tl->first = NULL;
@@ -88,14 +88,14 @@ rpopValue ( GeneralList *tl )
 }
 
 void
-delValue ( GeneralList *tl, ListItem *it )
+delValue(GeneralList *tl, ListItem *it)
 {
-    if ( it->prev )
+    if(it->prev)
         it->prev->next = it->next;
     else
         tl->first = it->next;
 
-    if ( it->next )
+    if(it->next)
         it->next->prev = it->prev;
     else
         tl->last = it->prev;
@@ -104,11 +104,11 @@ delValue ( GeneralList *tl, ListItem *it )
 }
 
 GeneralList *
-appendGeneralList ( GeneralList *tl, GeneralList *tl2 )
+appendGeneralList(GeneralList *tl, GeneralList *tl2)
 {
-    if ( tl && tl2 ) {
-        if ( tl2->first ) {
-            if ( tl->last ) {
+    if(tl && tl2) {
+        if(tl2->first) {
+            if(tl->last) {
                 tl->last->next = tl2->first;
                 tl2->first->prev = tl->last;
                 tl->last = tl2->last;
@@ -131,11 +131,11 @@ appendGeneralList ( GeneralList *tl, GeneralList *tl2 )
 /* Line text list */
 
 TextLine *
-newTextLine ( Str line, int pos )
+newTextLine(Str line, int pos)
 {
-    TextLine *lbuf = New ( TextLine );
+    TextLine *lbuf = New(TextLine);
 
-    if ( line )
+    if(line)
         lbuf->line = line;
     else
         lbuf->line = Strnew();
@@ -145,17 +145,17 @@ newTextLine ( Str line, int pos )
 }
 
 void
-appendTextLine ( TextLineList *tl, Str line, int pos )
+appendTextLine(TextLineList *tl, Str line, int pos)
 {
     TextLine *lbuf;
 
-    if ( tl->last == NULL ) {
-        pushTextLine ( tl, newTextLine ( Strdup ( line ), pos ) );
+    if(tl->last == NULL) {
+        pushTextLine(tl, newTextLine(Strdup(line), pos));
     } else {
         lbuf = tl->last->ptr;
 
-        if ( lbuf->line )
-            Strcat ( lbuf->line, line );
+        if(lbuf->line)
+            Strcat(lbuf->line, line);
         else
             lbuf->line = line;
 
