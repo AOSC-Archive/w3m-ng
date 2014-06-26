@@ -207,6 +207,6 @@
 
 #define WC_CCS_IS_UNICODE(c)	(WC_CCS_SET(c) == WC_CCS_UCS2 || WC_CCS_SET(c) == WC_CCS_UCS4 || WC_CCS_SET(c) == WC_CCS_UCS_TAG)
 
-extern wc_bool wc_is_combining(wc_wchar_t cc);
+extern wc_bool wc_is_combining ( wc_wchar_t cc );
 
 #endif

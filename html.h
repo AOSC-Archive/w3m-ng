@@ -230,7 +230,7 @@ typedef struct {
 #define HTML_SMALL      138
 #define HTML_N_SMALL    139
 
-   /* pseudo tag */
+/* pseudo tag */
 #define HTML_SELECT_INT     160
 #define HTML_N_SELECT_INT   161
 #define HTML_OPTION_INT     162

@@ -69,56 +69,65 @@ static wc_ces save_charset = 0;
 static symbol_set *save_symbol = NULL;
 
 static void
-encode_symbol(symbol_set * s)
+encode_symbol ( symbol_set * s )
 {
     int i;
 
-    for (i = 0; s->item[i]; i++) ;
-    s->conved_item = New_N(char *, i);
-    for (i = 0; s->item[i]; i++) {
-	if (*(s->item[i]))
-	    s->conved_item[i] = wc_conv(s->item[i], s->ces, InnerCharset)->ptr;
+    for ( i = 0; s->item[i]; i++ ) ;
+
+    s->conved_item = New_N ( char *, i );
+
+    for ( i = 0; s->item[i]; i++ ) {
+        if ( * ( s->item[i] ) )
+            s->conved_item[i] = wc_conv ( s->item[i], s->ces, InnerCharset )->ptr;
     }
 }
 
 char **
-get_symbol(wc_ces charset, int *width)
+get_symbol ( wc_ces charset, int *width )
 {
     charset_symbol_set *p;
     symbol_set *s = NULL;
 
-    if (UseGraphicChar != GRAPHIC_CHAR_ASCII) {
-	if (charset == save_charset && save_symbol != NULL &&
-	    *width == save_symbol->width) {
-	    return save_symbol->conved_item;
-	}
-	save_charset = charset;
-	for (p = charset_symbol_list; p->charset; p++) {
-	    if (charset == p->charset &&
-		(*width == 0 || *width == p->symbol->width)) {
-		s = p->symbol;
-		break;
-	    }
-	}
-	if (s == NULL)
-	    s = (*width == 2) ? &alt2_symbol_set : &alt_symbol_set;
-	if (s != save_symbol) {
-	    if (!s->conved_item)
-		encode_symbol(s);
-	    save_symbol = s;
-	}
+    if ( UseGraphicChar != GRAPHIC_CHAR_ASCII ) {
+        if ( charset == save_charset && save_symbol != NULL &&
+                *width == save_symbol->width ) {
+            return save_symbol->conved_item;
+        }
+
+        save_charset = charset;
+
+        for ( p = charset_symbol_list; p->charset; p++ ) {
+            if ( charset == p->charset &&
+                    ( *width == 0 || *width == p->symbol->width ) ) {
+                s = p->symbol;
+                break;
+            }
+        }
+
+        if ( s == NULL )
+            s = ( *width == 2 ) ? &alt2_symbol_set : &alt_symbol_set;
+
+        if ( s != save_symbol ) {
+            if ( !s->conved_item )
+                encode_symbol ( s );
+
+            save_symbol = s;
+        }
     } else {
-	if (save_symbol != NULL && *width == save_symbol->width)
-	    return save_symbol->conved_item;
-	s = (*width == 2) ? &alt2_symbol_set : &alt_symbol_set;
-	save_symbol = s;
+        if ( save_symbol != NULL && *width == save_symbol->width )
+            return save_symbol->conved_item;
+
+        s = ( *width == 2 ) ? &alt2_symbol_set : &alt_symbol_set;
+        save_symbol = s;
     }
+
     *width = s->width;
     return s->conved_item;
 }
 
 char **
-set_symbol(int width)
+set_symbol ( int width )
 {
     static char **symbol_buf = NULL;
     static int save_width = -1;
@@ -126,35 +135,42 @@ set_symbol(int width)
     int i;
     Str tmp;
 
-    if (width == save_width)
-	return symbol_buf;
-    if (symbol_buf == NULL) {
-	for (i = 0; s->item[i]; i++) ;
-	symbol_buf = New_N(char *, i);
+    if ( width == save_width )
+        return symbol_buf;
+
+    if ( symbol_buf == NULL ) {
+        for ( i = 0; s->item[i]; i++ ) ;
+
+        symbol_buf = New_N ( char *, i );
     }
-    for (i = 0; s->item[i]; i++) {
-	tmp = Strnew_size(4);
-	if (width == 2)
-	    wtf_push(tmp, WC_CCS_SPECIAL_W, (wc_uint32) (SYMBOL_BASE + i));
-	else
-	    wtf_push(tmp, WC_CCS_SPECIAL, (wc_uint32) (SYMBOL_BASE + i));
-	symbol_buf[i] = tmp->ptr;
+
+    for ( i = 0; s->item[i]; i++ ) {
+        tmp = Strnew_size ( 4 );
+
+        if ( width == 2 )
+            wtf_push ( tmp, WC_CCS_SPECIAL_W, ( wc_uint32 ) ( SYMBOL_BASE + i ) );
+        else
+            wtf_push ( tmp, WC_CCS_SPECIAL, ( wc_uint32 ) ( SYMBOL_BASE + i ) );
+
+        symbol_buf[i] = tmp->ptr;
     }
+
     save_width = width;
     return symbol_buf;
 }
 
 #ifdef USE_UNICODE
 void
-update_utf8_symbol(void)
+update_utf8_symbol ( void )
 {
     charset_symbol_set *p;
     utf8_symbol_set.width = WcOption.east_asian_width ? 2 : 1;
-    for (p = charset_symbol_list; p->charset; p++) {
-	if (p->charset == WC_CES_UTF_8) {
-	    encode_symbol(p->symbol);
-	    break;
-	}
+
+    for ( p = charset_symbol_list; p->charset; p++ ) {
+        if ( p->charset == WC_CES_UTF_8 ) {
+            encode_symbol ( p->symbol );
+            break;
+        }
     }
 }
 #endif
@@ -162,29 +178,33 @@ update_utf8_symbol(void)
 #else
 
 char **
-get_symbol(void)
+get_symbol ( void )
 {
     return alt_symbol;
 }
 #endif
 
 void
-push_symbol(Str str, char symbol, int width, int n)
+push_symbol ( Str str, char symbol, int width, int n )
 {
     char buf[2], *p;
     int i;
 
 #ifdef USE_M17N
-    if (width == 2)
-	p = alt2_symbol[(int)symbol];
+
+    if ( width == 2 )
+        p = alt2_symbol[ ( int ) symbol];
     else
 #endif
-	p = alt_symbol[(int)symbol];
-    for (i = 0; i < 2 && *p; i++, p++)
-	buf[i] = (*p == ' ') ? NBSP_CODE : *p;
+        p = alt_symbol[ ( int ) symbol];
 
-    Strcat(str, Sprintf("<_SYMBOL TYPE=%d>", symbol));
-    for (; n > 0; n--)
-	Strcat_charp_n(str, buf, i);
-    Strcat_charp(str, "</_SYMBOL>");
+    for ( i = 0; i < 2 && *p; i++, p++ )
+        buf[i] = ( *p == ' ' ) ? NBSP_CODE : *p;
+
+    Strcat ( str, Sprintf ( "<_SYMBOL TYPE=%d>", symbol ) );
+
+    for ( ; n > 0; n-- )
+        Strcat_charp_n ( str, buf, i );
+
+    Strcat_charp ( str, "</_SYMBOL>" );
 }

@@ -22,7 +22,7 @@ typedef struct stream_buffer *StreamBuffer;
 
 struct file_handle_w3m {
     FILE *f;
-    void (*close) ();
+    void ( *close ) ();
 };
 
 #ifdef USE_SSL
@@ -47,8 +47,8 @@ struct base_stream {
     void *handle;
     char type;
     char iseos;
-    int (*read) ();
-    void (*close) ();
+    int ( *read ) ();
+    void ( *close ) ();
 };
 
 struct file_stream {
@@ -56,8 +56,8 @@ struct file_stream {
     struct file_handle_w3m *handle;
     char type;
     char iseos;
-    int (*read) ();
-    void (*close) ();
+    int ( *read ) ();
+    void ( *close ) ();
 };
 
 struct str_stream {
@@ -65,8 +65,8 @@ struct str_stream {
     Str handle;
     char type;
     char iseos;
-    int (*read) ();
-    void (*close) ();
+    int ( *read ) ();
+    void ( *close ) ();
 };
 
 #ifdef USE_SSL
@@ -75,8 +75,8 @@ struct ssl_stream {
     struct ssl_handle *handle;
     char type;
     char iseos;
-    int (*read) ();
-    void (*close) ();
+    int ( *read ) ();
+    void ( *close ) ();
 };
 #endif				/* USE_SSL */
 
@@ -85,8 +85,8 @@ struct encoded_stream {
     struct ens_handle *handle;
     char type;
     char iseos;
-    int (*read) ();
-    void (*close) ();
+    int ( *read ) ();
+    void ( *close ) ();
 };
 
 union input_stream {
@@ -109,24 +109,24 @@ typedef struct encoded_stream *EncodedStrStream;
 
 typedef union input_stream *InputStream;
 
-extern InputStream newInputStream(int des);
-extern InputStream newFileStream(FILE * f, void (*closep) ());
-extern InputStream newStrStream(Str s);
+extern InputStream newInputStream ( int des );
+extern InputStream newFileStream ( FILE * f, void ( *closep ) () );
+extern InputStream newStrStream ( Str s );
 #ifdef USE_SSL
-extern InputStream newSSLStream(SSL * ssl, int sock);
+extern InputStream newSSLStream ( SSL * ssl, int sock );
 #endif
-extern InputStream newEncodedStream(InputStream is, char encoding);
-extern int ISclose(InputStream stream);
-extern int ISgetc(InputStream stream);
-extern int ISundogetc(InputStream stream);
-extern Str StrISgets(InputStream stream);
-extern Str StrmyISgets(InputStream stream);
-extern int ISread(InputStream stream, Str buf, int count);
-extern int ISfileno(InputStream stream);
-extern int ISeos(InputStream stream);
+extern InputStream newEncodedStream ( InputStream is, char encoding );
+extern int ISclose ( InputStream stream );
+extern int ISgetc ( InputStream stream );
+extern int ISundogetc ( InputStream stream );
+extern Str StrISgets ( InputStream stream );
+extern Str StrmyISgets ( InputStream stream );
+extern int ISread ( InputStream stream, Str buf, int count );
+extern int ISfileno ( InputStream stream );
+extern int ISeos ( InputStream stream );
 #ifdef USE_SSL
-extern void ssl_accept_this_site(char *hostname);
-extern Str ssl_get_certificate(SSL * ssl, char *hostname);
+extern void ssl_accept_this_site ( char *hostname );
+extern Str ssl_get_certificate ( SSL * ssl, char *hostname );
 #endif
 
 #define IST_BASIC	0
