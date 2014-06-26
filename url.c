@@ -82,11 +82,11 @@ struct cmdtable schemetable[] = {
     {"ftp", SCM_FTP},
     {"local", SCM_LOCAL},
     {"file", SCM_LOCAL},
-    /*  {"exec", SCM_EXEC}, */
+    {"exec", SCM_EXEC}, 
     {"nntp", SCM_NNTP},
-    /*  {"nntp", SCM_NNTP_GROUP}, */
+    {"nntp", SCM_NNTP_GROUP}, 
     {"news", SCM_NEWS},
-    /*  {"news", SCM_NEWS_GROUP}, */
+    {"news", SCM_NEWS_GROUP}, 
     {"data", SCM_DATA},
 #ifndef USE_W3MMAILER
     {"mailto", SCM_MAILTO},

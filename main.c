@@ -863,6 +863,7 @@ main(int argc, char **argv, char **envp)
 			   "w3m</a>!<p><p>This is w3m version ",
 			   w3m_version,
 			   "<br>Written by <a href='mailto:aito@fw.ipsj.or.jp'>Akinori Ito</a>",
+			   "<br>Honors the maintaining by <a href='https://github.com/AOSC-Dev'>AOSC-Dev</a>",
 			   NULL);
 	    newbuf = loadHTMLString(s_page);
 	    if (newbuf == NULL)
