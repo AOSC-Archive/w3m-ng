@@ -913,18 +913,16 @@ main(int argc, char **argv, char **envp)
 
             if(newbuf == NULL)
                 Strcat_charp(err_msg, "w3m: Can't load bookmark.\n");
-        } else if(visual_start) {
-            /* FIXME: gettextize? */
+        } else if (visual_start) {
             Str s_page;
-            s_page =
-                Strnew_charp
-                (_("<title>W3M startup page</title><center><b>Welcome to "));
+            s_page = Strnew_charp(
+                _("<title>W3M startup page</title><center><b>Welcome to "));
             Strcat_charp(s_page, "<a href='http://w3m.sourceforge.net/'>");
             Strcat_m_charp(s_page,
-                           "w3m</a>!<p><p>This is w3m version ",
+                           _("w3m</a>!<p><p>This is w3m version "),
                            w3m_version,
-                           "<br>Written by <a href='mailto:aito@fw.ipsj.or.jp'>Akinori Ito</a>",
-                           "<br>Honors the maintaining by <a href='https://github.com/AOSC-Dev'>AOSC-Dev</a>",
+                           _("<br>Written by <a href='mailto:aito@fw.ipsj.or.jp'>Akinori Ito</a>"),
+                           _("<br>Honors the maintaining by <a href='https://github.com/AOSC-Dev'>AOSC-Dev</a>"),
                            NULL);
             newbuf = loadHTMLString(s_page);
 
@@ -1011,9 +1009,8 @@ main(int argc, char **argv, char **envp)
             }
 
             if(newbuf == NULL) {
-                /* FIXME: gettextize? */
                 Strcat(err_msg,
-                       Sprintf("w3m: Can't load %s.\n", load_argv[i]));
+                       Sprintf(_("w3m: Can't load %s.\n"), load_argv[i]));
                 continue;
             } else if(newbuf == NO_BUFFER)
                 continue;
