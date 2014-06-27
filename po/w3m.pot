@@ -48,6 +48,10 @@ msgstr ""
 msgid "w3m: Can't load %s.\n"
 msgstr ""
 
+#: main.c:2712
+msgid "Do you want to exit w3m? (y/n)"
+msgstr ""
+
 #: menu.c:267
 msgid " Back         (b) "
 msgstr ""

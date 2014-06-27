@@ -38,11 +38,15 @@ msgstr "<br>由 <a href='mailto:aito@fw.ipsj.or.jp'>Akinori Ito</a> 编写"
 
 #: main.c:925
 msgid "<br>Honors the maintaining by <a href='https://github.com/AOSC-Dev'>AOSC-Dev</a>"
-msgstr "<br>由 <a href='https://github.com/AOSC-Dev'>AOSC-Dev 荣幸维护</a>"
+msgstr "<br>由 <a href='https://github.com/AOSC-Dev'>AOSC-Dev 荣耀维护</a>"
 
 #: main.c:1015
 msgid "w3m: Can't load %s.\n"
 msgstr "w3m: 无法加载 %s.\n"
+
+#: main.c:2712                                                                  
+msgid "Do you want to exit w3m? (y/n)"                                          
+msgstr "你想退出 w3m? (y/n)"
 
 #: menu.c:267
 msgid " Back         (b) "

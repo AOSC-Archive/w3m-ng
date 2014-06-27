@@ -8340,13 +8340,52 @@ Buffer *loadHTMLString(Str page)
 
     init_stream(&f, SCM_LOCAL, newStrStream(page));
 
-    /* TODO: it is better to use UTF-8, isn' it? */
 #ifdef USE_M17N
-    newBuf->document_charset = WC_CES_UTF_8/*InnerCharset*/;
+    newBuf->document_charset = InnerCharset;
 #endif
     loadHTMLstream(&f, newBuf, NULL, TRUE);
 #ifdef USE_M17N
-    newBuf->document_charset = WC_CES_UTF_8/*WC_CES_US_ASCII*/;
+    newBuf->document_charset = WC_CES_US_ASCII;
+#endif
+
+    TRAP_OFF;
+    newBuf->topLine = newBuf->firstLine;
+    newBuf->lastLine = newBuf->currentLine;
+    newBuf->currentLine = newBuf->firstLine;
+    newBuf->type = "text/html";
+    newBuf->real_type = newBuf->type;
+
+    if (n_textarea)
+        formResetBuffer(newBuf, newBuf->formitem);
+
+    return newBuf;
+}
+
+/* Mr. Overload */
+Buffer *loadHTMLString2(Str page, wc_ces charset)
+{
+    URLFile f;
+    MySignalHandler(*volatile prevtrap)(SIGNAL_ARG) = NULL;
+    Buffer *newBuf;
+
+    newBuf = newBuffer(INIT_BUFFER_WIDTH);
+
+    if (SETJMP(AbortLoading) != 0) {
+        TRAP_OFF;
+        discardBuffer(newBuf);
+        return NULL;
+    }
+
+    TRAP_ON;
+
+    init_stream(&f, SCM_LOCAL, newStrStream(page));
+
+#ifdef USE_M17N
+    newBuf->document_charset = charset;
+#endif
+    loadHTMLstream(&f, newBuf, NULL, TRUE);
+#ifdef USE_M17N
+    newBuf->document_charset = charset;
 #endif
 
     TRAP_OFF;

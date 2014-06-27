@@ -924,17 +924,17 @@ main(int argc, char **argv, char **envp)
                            _("<br>Written by <a href='mailto:aito@fw.ipsj.or.jp'>Akinori Ito</a>"),
                            _("<br>Honors the maintaining by <a href='https://github.com/AOSC-Dev'>AOSC-Dev</a>"),
                            NULL);
-            newbuf = loadHTMLString(s_page);
+            newbuf = loadHTMLString2(s_page, WC_CES_UTF_8);
 
-            if(newbuf == NULL)
+            if (newbuf == NULL)
                 Strcat_charp(err_msg, "w3m: Can't load string.\n");
-            else if(newbuf != NO_BUFFER)
+            else if (newbuf != NO_BUFFER)
                 newbuf->bufferprop |= (BP_INTERNAL | BP_NO_URL);
         } else if((p = getenv("HTTP_HOME")) != NULL ||
                   (p = getenv("WWW_HOME")) != NULL) {
             newbuf = loadGeneralFile(p, NULL, NO_REFERER, 0, NULL);
 
-            if(newbuf == NULL)
+            if (newbuf == NULL)
                 Strcat(err_msg, Sprintf("w3m: Can't load %s.\n", p));
             else if(newbuf != NO_BUFFER)
                 pushHashHist(URLHist, parsedURL2Str(&newbuf->currentURL)->ptr);
@@ -2706,11 +2706,11 @@ _quitfm(int confirm)
 {
     char *ans = "y";
 
-    if(checkDownloadList())
+    if (checkDownloadList()) {
         /* FIXME: gettextize? */
         ans = inputChar("Download process retains. "
                         "Do you want to exit w3m? (y/n)");
-    else if(confirm)
+    } else if (confirm)
         /* FIXME: gettextize? */
         ans = inputChar("Do you want to exit w3m? (y/n)");
 
