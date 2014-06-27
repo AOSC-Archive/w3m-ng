@@ -16,6 +16,38 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: main.c:124
+msgid "w3m version %s, options %s\n"
+msgstr ""
+
+#: main.c:194
+msgid "usage: w3m [options] [URL or filename]\noptions:\n"
+msgstr ""
+
+#: main.c:195
+msgid "    -t tab           set tab width\n"
+msgstr ""
+
+#: main.c:919
+msgid "<title>W3M startup page</title><center><b>Welcome to "
+msgstr ""
+
+#: main.c:922
+msgid "w3m</a>!<p><p>This is w3m version "
+msgstr ""
+
+#: main.c:924
+msgid "<br>Written by <a href='mailto:aito@fw.ipsj.or.jp'>Akinori Ito</a>"
+msgstr ""
+
+#: main.c:925
+msgid "<br>Honors the maintaining by <a href='https://github.com/AOSC-Dev'>AOSC-Dev</a>"
+msgstr ""
+
+#: main.c:1015
+msgid "w3m: Can't load %s.\n"
+msgstr ""
+
 #: menu.c:267
 msgid " Back         (b) "
 msgstr ""
