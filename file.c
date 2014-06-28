@@ -8345,7 +8345,7 @@ Buffer *loadHTMLString(Str page)
 #endif
     loadHTMLstream(&f, newBuf, NULL, TRUE);
 #ifdef USE_M17N
-    newBuf->document_charset = WC_CES_US_ASCII;
+    newBuf->document_charset = WC_CES_UTF_8/*WC_CES_US_ASCII*/;
 #endif
 
     TRAP_OFF;
@@ -8385,7 +8385,7 @@ Buffer *loadHTMLString2(Str page, wc_ces charset)
 #endif
     loadHTMLstream(&f, newBuf, NULL, TRUE);
 #ifdef USE_M17N
-    newBuf->document_charset = charset;
+    newBuf->document_charset = WC_CES_UTF_8;
 #endif
 
     TRAP_OFF;

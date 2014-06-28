@@ -48,6 +48,16 @@ msgstr "w3m: 无法加载 %s.\n"
 msgid "Do you want to exit w3m? (y/n)"                                          
 msgstr "你想退出 w3m? (y/n)"
 
+#: map.c:645                                                                    
+msgid "<html><head>" 
+"<title>Information about current page</title>"
+"</head><body>"
+"<h1>Information about current page</h1>\n"
+msgstr "<html><head>"                                                           
+"<title>当前页面信息</title>"                               
+"</head><body>"                                                                  
+"<h1>当前页面信息</h1>\n"
+
 #: menu.c:267
 msgid " Back         (b) "
 msgstr " 后退         (b) "

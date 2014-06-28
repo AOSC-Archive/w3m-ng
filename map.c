@@ -5,6 +5,8 @@
 #include "fm.h"
 #include <math.h>
 
+#include "myiconv.h"
+
 MapList *
 searchMapList(Buffer *buf, char *name)
 {
@@ -642,17 +644,17 @@ page_info_panel(Buffer *buf)
 #endif
     Buffer *newbuf;
 
-    Strcat_charp(tmp, "<html><head>\
+    Strcat_charp(tmp, _("<html><head>\
 <title>Information about current page</title>\
 </head><body>\
-<h1>Information about current page</h1>\n");
+<h1>Information about current page</h1>\n"));
 
-    if(buf == NULL)
+    if (buf == NULL)
         goto end;
 
     all = buf->allLine;
 
-    if(all == 0 && buf->lastLine)
+    if (all == 0 && buf->lastLine)
         all = buf->lastLine->linenumber;
 
 #ifdef USE_M17N
@@ -660,12 +662,14 @@ page_info_panel(Buffer *buf)
 #endif
     p = parsedURL2Str(&buf->currentURL)->ptr;
 
-    if(DecodeURL)
+    if (DecodeURL)
         p = url_unquote_conv(p, 0);
-
+    
+    /* FIXME: Mr. Wrong */
+    char *title = myiconv("ISO-8859-1", "UTF-8", buf->buffername);
     Strcat_m_charp(tmp, "<table cellpadding=0>",
                    "<tr valign=top><td nowrap>Title<td>",
-                   html_quote(buf->buffername),
+                   /*title ? html_quote(title) : */html_quote(buf->buffername),
                    "<tr valign=top><td nowrap>Current URL<td>",
                    html_quote(p),
                    "<tr valign=top><td nowrap>Document Type<td>",
@@ -788,7 +792,7 @@ page_info_panel(Buffer *buf)
 #endif
 end:
     Strcat_charp(tmp, "</body></html>");
-    newbuf = loadHTMLString(tmp);
+    newbuf = loadHTMLString2(tmp, WC_CES_UTF_8);
 #ifdef USE_M17N
 
     if(newbuf)
