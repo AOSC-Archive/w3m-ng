@@ -1009,8 +1009,9 @@ main(int argc, char **argv, char **envp)
             }
 
             if(newbuf == NULL) {
+                /* FIXME: gettextize */
                 Strcat(err_msg,
-                       Sprintf(_("w3m: Can't load %s.\n"), load_argv[i]));
+                       Sprintf("w3m: Can't load %s.\n", load_argv[i]));
                 continue;
             } else if(newbuf == NO_BUFFER)
                 continue;

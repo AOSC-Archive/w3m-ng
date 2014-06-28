@@ -1869,6 +1869,7 @@ addstr(char *s)
 #endif
 }
 
+/* FIXME: it is ... */
 void
 addnstr(char *s, int n)
 {
