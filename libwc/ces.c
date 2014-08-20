@@ -27,10 +27,21 @@ static wc_gset gset_iso8859##no[] = { \
     { WC_CCS_ISO_8859_##no, WC_C_G1_CS96 | 0x80, 1 }, \
     { 0, 0, 0 }, \
 }
-gset_iso8859(1); gset_iso8859(2); gset_iso8859(3); gset_iso8859(4);
-gset_iso8859(5); gset_iso8859(6); gset_iso8859(7); gset_iso8859(8);
-gset_iso8859(9); gset_iso8859(10); gset_iso8859(11);
-gset_iso8859(13); gset_iso8859(14); gset_iso8859(15); gset_iso8859(16);
+gset_iso8859(1);
+gset_iso8859(2);
+gset_iso8859(3);
+gset_iso8859(4);
+gset_iso8859(5);
+gset_iso8859(6);
+gset_iso8859(7);
+gset_iso8859(8);
+gset_iso8859(9);
+gset_iso8859(10);
+gset_iso8859(11);
+gset_iso8859(13);
+gset_iso8859(14);
+gset_iso8859(15);
+gset_iso8859(16);
 
 #define gset_cp(no) gset_priv1(CP##no, cp##no)
 #define gset_priv1(ccs, ces) \
@@ -39,12 +50,32 @@ static wc_gset gset_##ces[] = { \
     { WC_CCS_##ccs,    0x80, 1 }, \
     { 0, 0, 0 }, \
 }
-gset_cp(437); gset_cp(737); gset_cp(775); gset_cp(850); gset_cp(852);
-gset_cp(855); gset_cp(856); gset_cp(857); gset_cp(860); gset_cp(861);
-gset_cp(862); gset_cp(863); gset_cp(864); gset_cp(865); gset_cp(866);
-gset_cp(869); gset_cp(874); gset_cp(1006);
-gset_cp(1250); gset_cp(1251); gset_cp(1252); gset_cp(1253); gset_cp(1254);
-gset_cp(1255); gset_cp(1256); gset_cp(1257);
+gset_cp(437);
+gset_cp(737);
+gset_cp(775);
+gset_cp(850);
+gset_cp(852);
+gset_cp(855);
+gset_cp(856);
+gset_cp(857);
+gset_cp(860);
+gset_cp(861);
+gset_cp(862);
+gset_cp(863);
+gset_cp(864);
+gset_cp(865);
+gset_cp(866);
+gset_cp(869);
+gset_cp(874);
+gset_cp(1006);
+gset_cp(1250);
+gset_cp(1251);
+gset_cp(1252);
+gset_cp(1253);
+gset_cp(1254);
+gset_cp(1255);
+gset_cp(1256);
+gset_cp(1257);
 gset_priv1(KOI8_R, koi8r);
 gset_priv1(KOI8_U, koi8u);
 gset_priv1(NEXTSTEP, nextstep);

@@ -100,9 +100,9 @@
 #define WC_ISO_MAP_DETECT	0x4F
 
 #define WC_CS94WUL_N(U,L)	(((U) - 0x21) * 0x5E + (L) - 0x21)
-#define WC_CS94W_N(c)	WC_CS94WUL_N(((c) >> 8) & 0x7F, (c) & 0x7F)     
+#define WC_CS94W_N(c)	WC_CS94WUL_N(((c) >> 8) & 0x7F, (c) & 0x7F)
 #define WC_CS96WUL_N(U,L)	(((U) - 0x20) * 0x60 + (L) - 0x20)
-#define WC_CS96W_N(c)	WC_CS96WUL_N(((c) >> 8) & 0x7F, (c) & 0x7F)     
+#define WC_CS96W_N(c)	WC_CS96WUL_N(((c) >> 8) & 0x7F, (c) & 0x7F)
 #define WC_N_CS94WU(c)	((c) / 0x5E + 0x21)
 #define WC_N_CS94WL(c)	((c) % 0x5E + 0x21)
 #define WC_N_CS94W(c)	((WC_N_CS94WU(c) << 8) + WC_N_CS94WL(c))

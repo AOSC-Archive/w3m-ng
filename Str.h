@@ -1,11 +1,11 @@
 /* $Id: Str.h,v 1.6 2006/04/07 13:35:35 inu Exp $ */
-/* 
+/*
  * String manipulation library for Boehm GC
  *
  * (C) Copyright 1998-1999 by Akinori Ito
  *
- * This software may be redistributed freely for this purpose, in full 
- * or in part, provided that this entire copyright notice is included 
+ * This software may be redistributed freely for this purpose, in full
+ * or in part, provided that this entire copyright notice is included
  * on any copies of this software and applications and derivations thereof.
  *
  * This software is provided on an "as is" basis, without warranty of any
