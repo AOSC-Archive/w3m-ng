@@ -165,6 +165,14 @@ AC_W3M_SYS_ERRLIST
 AC_W3M_SIGSETJMP
 AC_W3M_SIGNAL
 
+dnl ================================================================            
+dnl  Language Support                                                           
+dnl ================================================================            
+GETTEXT_PACKAGE=w3m                                                             
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Define the gettext package to be used])
+AC_SUBST(GETTEXT_PACKAGE)                                                       
+AM_GLIB_GNU_GETTEXT
+
 AC_SUBST(HELP_DIR)
 HELP_DIR="$datadir/$PACKAGE"
 AC_DEFINE(HELP_DIR, "$HELP_DIR")

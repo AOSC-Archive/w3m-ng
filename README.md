@@ -13,6 +13,15 @@ half-[cloned](https://github.com/akavel/cvsclone) cvs repo.
 
 For historical changes, go to the original site: http://w3m.sourceforge.net/
 
+Build && Install
+----------------
+
+```
+./autogen.sh 
+make
+sudo make install
+```
+
 TODO
 ---
 
