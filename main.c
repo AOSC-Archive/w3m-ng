@@ -862,7 +862,7 @@ main(int argc, char **argv, char **envp)
                            _("<br>Written by <a href='mailto:aito@fw.ipsj.or.jp'>Akinori Ito</a>"),
                            _("<br>Honors the maintaining by <a href='https://github.com/AOSC-Dev'>AOSC-Dev</a>"),
 			   NULL);
-	    newbuf = loadHTMLString(s_page);
+            newbuf = loadHTMLString2(s_page, WC_CES_UTF_8);
 	    if (newbuf == NULL)
 		Strcat_charp(err_msg, "w3m: Can't load string.\n");
 	    else if (newbuf != NO_BUFFER)
