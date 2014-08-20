@@ -660,7 +660,7 @@ page_info_panel(Buffer *buf)
 #endif
   end:
     Strcat_charp(tmp, "</body></html>");
-    newbuf = loadHTMLString2(tmp, WC_CES_UTF_8);
+    newbuf = loadHTMLString(tmp);
 #ifdef USE_M17N
     if (newbuf)
 	newbuf->document_charset = buf->document_charset;
