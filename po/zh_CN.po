@@ -12,6 +12,52 @@ msgstr "Project-Id-Version: aosc\n"
 "X-Generator: crowdin.net\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+#: main.c:124
+msgid "w3m version %s, options %s\n"
+msgstr "w3m 版本 %s, 参数 %s\n"
+
+#: main.c:194
+msgid "usage: w3m [options] [URL or filename]\noptions:\n"
+msgstr "使用: w3m [参数] [URL 或 文件名]\n参数:\n"
+
+#: main.c:195
+msgid "    -t tab           set tab width\n"
+msgstr "    -t tab           设置标签宽度\n"
+
+#: main.c:919
+msgid "<title>W3M startup page</title><center><b>Welcome to "
+msgstr "<title>W3M 开始页面</title><center><b>欢迎 "
+
+#: main.c:922
+msgid "w3m</a>!<p><p>This is w3m version "
+msgstr "w3m</a>!<p><p>这是 w3m 版本 "
+
+#: main.c:924
+msgid "<br>Written by <a href='mailto:aito@fw.ipsj.or.jp'>Akinori Ito</a>"
+msgstr "<br>由 <a href='mailto:aito@fw.ipsj.or.jp'>Akinori Ito</a> 编写"
+
+#: main.c:925
+msgid "<br>Honors the maintaining by <a href='https://github.com/AOSC-Dev'>AOSC-Dev</a>"
+msgstr "<br>由 <a href='https://github.com/AOSC-Dev'>AOSC-Dev 荣耀维护</a>"
+
+#: main.c:1015
+msgid "w3m: Can't load %s.\n"
+msgstr "w3m: 无法加载 %s.\n"
+
+#: main.c:2712                                                                  
+msgid "Do you want to exit w3m? (y/n)"                                          
+msgstr "你想退出 w3m? (y/n)"
+
+#: map.c:645                                                                    
+msgid "<html><head>" 
+"<title>Information about current page</title>"
+"</head><body>"
+"<h1>Information about current page</h1>\n"
+msgstr "<html><head>"                                                           
+"<title>当前页面信息</title>"                               
+"</head><body>"                                                                  
+"<h1>当前页面信息</h1>\n"
+
 #: menu.c:267
 msgid " Back         (b) "
 msgstr " 后退         (b) "

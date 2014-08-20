@@ -1,9 +1,9 @@
 /* $Id: fm.h,v 1.149 2010/08/20 09:47:09 htrb Exp $ */
-/* 
+/*
  * w3m: WWW wo Miru utility
- * 
+ *
  * by A.ITO  Feb. 1995
- * 
+ *
  * You can use,copy,modify and distribute this program without any permission.
  */
 
@@ -95,7 +95,7 @@ void bzero(void *, int);
 
 #define DEFUN(funcname, macroname, docstring) void funcname(void)
 
-/* 
+/*
  * Constants.
  */
 #define LINELEN	256		/* Initial line length */
@@ -134,7 +134,7 @@ void bzero(void *, int);
 #define DICTBUFFERNAME "*dictionary*"
 #endif				/* USE_DICT */
 
-/* 
+/*
  * Line Property
  */
 
@@ -264,7 +264,7 @@ extern int REV_LB[];
 #define IMG_FLAG_ERROR		2
 #define IMG_FLAG_DONT_REMOVE	4
 
-/* 
+/*
  * Macros.
  */
 
@@ -299,7 +299,7 @@ extern int REV_LB[];
 #define EOL(l) (&(l)->ptr[(l)->length])
 #define IS_EOL(p,l) ((p)==&(l)->ptr[(l)->length])
 
-/* 
+/*
  * Types.
  */
 
@@ -721,9 +721,9 @@ struct cookie {
 #define COO_OVERRIDE	32	/* user chose to override security checks */
 
 #define COO_OVERRIDE_OK	32	/* flag to specify that an error is overridable */
-						/* version 0 refers to the original cookie_spec.html */
-						/* version 1 refers to RFC 2109 */
-						/* version 1' refers to the Internet draft to obsolete RFC 2109 */
+/* version 0 refers to the original cookie_spec.html */
+/* version 1 refers to RFC 2109 */
+/* version 1' refers to the Internet draft to obsolete RFC 2109 */
 #define COO_EINTERNAL	(1)	/* unknown error; probably forgot to convert "return 1" in cookie.c */
 #define COO_ETAIL	(2 | COO_OVERRIDE_OK)	/* tail match failed (version 0) */
 #define COO_ESPECIAL	(3)	/* special domain check failed (version 0) */
@@ -778,7 +778,7 @@ typedef struct http_request {
 
 #define set_no_proxy(domains) (NO_proxy_domains=make_domain_list(domains))
 
-/* 
+/*
  * Globals.
  */
 
@@ -1089,7 +1089,7 @@ global int relative_wheel_scroll init(FALSE);
 global int fixed_wheel_scroll_count init(5);
 global int relative_wheel_scroll_ratio init(30);
 typedef struct _MouseActionMap {
-    void (*func) ();
+    void (*func)();
     char *data;
 } MouseActionMap;
 typedef struct _MouseAction {
@@ -1197,7 +1197,7 @@ typedef struct _AlarmEvent {
 } AlarmEvent;
 #endif
 
-/* 
+/*
  * Externals
  */
 

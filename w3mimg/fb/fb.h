@@ -18,7 +18,7 @@ FB_IMAGE *fb_image_new(int width, int height);
 void fb_image_pset(FB_IMAGE * image, int x, int y, int r, int g, int b);
 void fb_image_fill(FB_IMAGE * image, int r, int g, int b);
 int fb_image_draw(FB_IMAGE * image, int x, int y, int sx, int sy, int width,
-		  int height);
+                  int height);
 void fb_image_free(FB_IMAGE * image);
 void fb_image_copy(FB_IMAGE * dest, FB_IMAGE * src);
 

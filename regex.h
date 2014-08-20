@@ -12,8 +12,8 @@ typedef struct {
 
 typedef struct regexchar {
     union {
-	longchar *pattern;
-	struct regex *sub;
+        longchar *pattern;
+        struct regex *sub;
     } p;
     unsigned char mode;
 } regexchar;
