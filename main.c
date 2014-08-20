@@ -122,7 +122,7 @@ static int searchKeyNum(void);
 static void
 fversion(FILE * f)
 {
-    fprintf(f, "w3m version %s, options %s\n", w3m_version,
+    fprintf(f, _("w3m version %s, options %s\n"), w3m_version,
 #if LANG == JA
 	    "lang=ja"
 #else
@@ -192,9 +192,8 @@ static void
 fusage(FILE * f, int err)
 {
     fversion(f);
-    /* FIXME: gettextize? */
-    fprintf(f, "usage: w3m [options] [URL or filename]\noptions:\n");
-    fprintf(f, "    -t tab           set tab width\n");
+    fprintf(f, _("usage: w3m [options] [URL or filename]\noptions:\n"));
+    fprintf(f, _("    -t tab           set tab width\n"));
     fprintf(f, "    -r               ignore backspace effect\n");
     fprintf(f, "    -l line          # of preserved line (default 10000)\n");
 #ifdef USE_M17N
@@ -858,6 +857,7 @@ main(int argc, char **argv, char **envp)
 	    s_page =
 		Strnew_charp
 		("<title>W3M startup page</title><center><b>Welcome to ");
+                (_("<title>W3M startup page</title><center><b>Welcome to "));
 	    Strcat_charp(s_page, "<a href='http://w3m.sourceforge.net/'>");
 	    Strcat_m_charp(s_page,
 			   "w3m</a>!<p><p>This is w3m version ",

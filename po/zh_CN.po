@@ -12,6 +12,22 @@ msgstr "Project-Id-Version: aosc\n"
 "X-Generator: crowdin.net\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+#: main.c:124
+msgid "w3m version %s, options %s\n"
+msgstr "w3m 版本 %s, 参数 %s\n"
+
+#: main.c:194
+msgid "usage: w3m [options] [URL or filename]\noptions:\n"
+msgstr "使用: w3m [参数] [URL 或 文件名]\n参数:\n"
+
+#: main.c:195
+msgid "    -t tab           set tab width\n"
+msgstr "    -t tab           设置标签宽度\n"
+
+#: main.c:927
+msgid "<title>W3M startup page</title><center><b>Welcome to "
+msgstr "<title>W3M 开始页面</title><center><b>欢迎 "
+
 #: menu.c:267
 msgid " Back         (b) "
 msgstr " 后退         (b) "
