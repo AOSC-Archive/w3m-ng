@@ -7082,8 +7082,7 @@ loadHTMLstream(URLFile *f, Buffer *newBuf, FILE * src, int internal)
 /* 
  * loadHTMLString: read string and make new buffer
  */
-Buffer *
-loadHTMLString(Str page)
+Buffer *loadHTMLString(Str page)
 {
     URLFile f;
     MySignalHandler(*volatile prevtrap) (SIGNAL_ARG) = NULL;
@@ -7099,12 +7098,13 @@ loadHTMLString(Str page)
 
     init_stream(&f, SCM_LOCAL, newStrStream(page));
 
+    /* TODO: it is better to use UTF-8, isn' it? */
 #ifdef USE_M17N
-    newBuf->document_charset = InnerCharset;
+    newBuf->document_charset = WC_CES_UTF_8/*InnerCharset*/;
 #endif
     loadHTMLstream(&f, newBuf, NULL, TRUE);
 #ifdef USE_M17N
-    newBuf->document_charset = WC_CES_US_ASCII;
+    newBuf->document_charset = WC_CES_UTF_8/*WC_CES_US_ASCII*/;
 #endif
 
     TRAP_OFF;
